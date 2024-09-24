@@ -18,7 +18,7 @@ connecting.connect((err)=>{if (err) throw err;})
 // Declaración de los endpoints 
 
 // POST para añadir nuevos estudiantes
-app.post('/user', (req, res)=>{ 
+app.post('/estudiante', (req, res)=>{ 
   let query = 'select * from Estudiantes where Cedula = ?';
   const { Nombre, Apellidos, Cedula, Correo, Contrasena, Carrera, Estado } = req.body;
 
@@ -35,8 +35,8 @@ app.post('/user', (req, res)=>{
 })
 
 // PUT para actualizar información del estudiante
-app.put('/user',(req, res)=>{ 
-  let query = 'update Estudiantes set Nombre = ?, Apellidos = ?, Correo = ?, Carrera = ? where Cedula = ?';
+app.put('/estudiante',(req, res)=>{ 
+  const query = 'update Estudiantes set Nombre = ?, Apellidos = ?, Correo = ?, Carrera = ? where Cedula = ?';
   const { Nombre, Apellidos, Cedula, Correo, Carrera } = req.body;
 
   connecting.query(query, [ Nombre, Apellidos, Correo, Carrera, Cedula ], (err, resu)=>{
@@ -45,5 +45,6 @@ app.put('/user',(req, res)=>{
   })
 })
 
+// Listening in port 3001
 app.listen(3001, ()=>{})
 
