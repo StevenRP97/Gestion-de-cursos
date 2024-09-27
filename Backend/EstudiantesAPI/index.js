@@ -34,6 +34,19 @@ app.post('/estudiante', (req, res)=>{
   })
 })
 
+// POST para iniciar sesión 
+app.post('/estudiante/login', (req, res)=>{ 
+  let query = 'select * from Estudiantes where Cedula = ? AND Contrasena = ?';
+  const { Cedula, Contrasena } = req.body;
+
+  connecting.query(query, [ Cedula, Contrasena ], (err, resu)=>{
+    if (err) {return res.status(500).json({error: err.message})}
+    if(resu.length < 1){return res.status(404).send([{error:'Usuario no encontrado'}])}
+    res.json(resu)
+  })
+
+})
+
 // PUT para actualizar información del estudiante
 app.put('/estudiante',(req, res)=>{ 
   const query = 'update Estudiantes set Nombre = ?, Apellidos = ?, Correo = ?, Carrera = ? where Cedula = ?';
